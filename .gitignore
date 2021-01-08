@@ -1,0 +1,11 @@
+build
+node_modules
+
+.env
+# local .env* files
+.env.local
+.env.*.local
+
+# for personal files
+.private
+.cache

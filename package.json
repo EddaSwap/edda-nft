@@ -1,0 +1,44 @@
+{
+  "name": "edda-nft",
+  "version": "1.0.0",
+  "description": "edda-nft",
+  "main": "index.js",
+  "scripts": {
+    "compile": "truffle compile",
+    "deploy": "[ \"$NODE_ENV\" != \"truffle\" ] && NETWORK=\"--network ${NODE_ENV}\"; truffle migrate ${NETWORK}",
+    "exec": "[ \"$NODE_ENV\" != \"truffle\" ] && NETWORK=\"--network ${NODE_ENV}\"; truffle exec ${NETWORK}",
+    "test": "npm run test:js",
+    "test:js": "[ \"$NODE_ENV\" != \"truffle\" ] && NETWORK=\"--network ${NODE_ENV}\"; echo \"NETWORK=[${NETWORK}]\"; truffle test ${NETWORK}",
+    "truffle": "[ \"$NODE_ENV\" != \"truffle\" ] && NETWORK=\"--network ${NODE_ENV}\"; truffle ${NETWORK}",
+    "merge-contracts": "sol-merger \"./contracts/*.sol\" ./audit"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@openzeppelin/contracts": "^3.3.0",
+    "dotenv-flow": "^3.2.0",
+    "husky": "^4.3.5",
+    "lint-staged": "^10.5.3",
+    "prettier": "^2.2.1",
+    "prettier-plugin-solidity": "^1.0.0-beta.1",
+    "sol-merger": "^3.1.0",
+    "truffle": "^5.1.56",
+    "truffle-hdwallet-provider": "^1.0.17"
+  },
+  "lint-staged": {
+    "{contracts,interfaces,audit}/**/*.sol": [
+      "npx prettier --write"
+    ],
+    "{scripts,test,config}/**/*.js": [
+      "npx prettier --write"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "devDependencies": {
+    "@openzeppelin/test-helpers": "^0.5.10"
+  }
+}
