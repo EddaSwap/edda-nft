@@ -1,0 +1,266 @@
+[
+  {
+    "id": 1,
+    "token_id": "1",
+    "name": "A Rising Moon - Green",
+    "description": "The Rising Moon created by Primal Cypher in its Green Variant",
+    "image": "https://nft.eddaswap.com/nft/colection1/ARISINGMOONGreen.png",
+    "points": "15",
+    "maxSupply": "50",
+    "collection": {
+      "id": 1,
+      "name": "A Rising Moon!",
+      "description": null,
+      "created_by": 2,
+      "updated_by": 2,
+      "created_at": "2020-12-24T14:21:27.000Z",
+      "updated_at": "2020-12-24T14:21:27.000Z"
+    },
+    "animation": "https://nft.eddaswap.com/nft/animation/colection1/ARISINGMOONHackersGreen.MP4",
+    "rarity": "none"
+  },
+  {
+    "id": 2,
+    "token_id": "2",
+    "name": "A Rising Moon - Blue",
+    "description": "The Rising Moon created by Primal Cypher in its Blue Variant",
+    "image": "https://nft.eddaswap.com/nft/colection1/ARISINGMOONBlue.png",
+    "points": "15",
+    "maxSupply": "50",
+    "collection": {
+      "id": 1,
+      "name": "A Rising Moon!",
+      "description": null,
+      "created_by": 2,
+      "updated_by": 2,
+      "created_at": "2020-12-24T14:21:27.000Z",
+      "updated_at": "2020-12-24T14:21:27.000Z"
+    },
+    "animation": "https://nft.eddaswap.com/nft/animation/colection1/ARISINGMOONOriginal.MP4",
+    "rarity": "none"
+  },
+  {
+    "id": 3,
+    "token_id": "3",
+    "name": "A Rising Moon - Purple",
+    "description": "The Rising Moon created by Primal Cypher in its Rare Purple Variant",
+    "image": "https://nft.eddaswap.com/nft/colection1/ARISINGMOONPurple.png",
+    "points": "30",
+    "maxSupply": "20",
+    "collection": {
+      "id": 1,
+      "name": "A Rising Moon!",
+      "description": null,
+      "created_by": 2,
+      "updated_by": 2,
+      "created_at": "2020-12-24T14:21:27.000Z",
+      "updated_at": "2020-12-24T14:21:27.000Z"
+    },
+    "animation": "https://nft.eddaswap.com/nft/animation/colection1/ARISINGMOONRarePurple.MP4",
+    "rarity": "Rare"
+  },
+  {
+    "id": 4,
+    "token_id": "4",
+    "name": "A Rising Moon - Red",
+    "description": "The Rising Moon created by Primal Cypher in its Red Variant",
+    "image": "https://nft.eddaswap.com/nft/colection1/ARISINGMOONRed.png",
+    "points": "15",
+    "maxSupply": "50",
+    "collection": {
+      "id": 1,
+      "name": "A Rising Moon!",
+      "description": null,
+      "created_by": 2,
+      "updated_by": 2,
+      "created_at": "2020-12-24T14:21:27.000Z",
+      "updated_at": "2020-12-24T14:21:27.000Z"
+    },
+    "animation": "https://nft.eddaswap.com/nft/animation/colection1/ARISINGMOONRedVariant.MP4",
+    "rarity": "none"
+  },
+  {
+    "id": 5,
+    "token_id": "5",
+    "name": "A Rising Moon - T.Green",
+    "description": "The Rising Moon created by Primal Cypher in its Trinity Green Variant",
+    "image": "https://nft.eddaswap.com/nft/colection1/ARISINGMOONTrinityGreen.png",
+    "points": "15",
+    "maxSupply": "50",
+    "collection": {
+      "id": 1,
+      "name": "A Rising Moon!",
+      "description": null,
+      "created_by": 2,
+      "updated_by": 2,
+      "created_at": "2020-12-24T14:21:27.000Z",
+      "updated_at": "2020-12-24T14:21:27.000Z"
+    },
+    "animation": "https://nft.eddaswap.com/nft/animation/colection1/ARISINGMOONTrinityGreenVariant.MP4",
+    "rarity": "none"
+  },
+  {
+    "id": 6,
+    "token_id": "6",
+    "name": "The Awakening - Green",
+    "description": "The Awakeneing III created by Primal Cypher in its Green Variant",
+    "image": "https://nft.eddaswap.com/nft/colection2/THEIIIHackersGreen.png",
+    "points": "15",
+    "maxSupply": "50",
+    "collection": {
+      "id": 2,
+      "name": "The Awakening III",
+      "description": null,
+      "created_by": 2,
+      "updated_by": 2,
+      "created_at": "2020-12-24T14:23:24.000Z",
+      "updated_at": "2020-12-24T14:23:24.000Z"
+    },
+    "animation": "https://nft.eddaswap.com/nft/animation/colection2/THEAWAKENINGIIIHackersGreenVariant.MP4",
+    "rarity": "none"
+  },
+  {
+    "id": 7,
+    "token_id": "7",
+    "name": "The Awakening - Blue",
+    "description": "The Awakeneing III created by Primal Cypher in its Blue Variant",
+    "image": "https://nft.eddaswap.com/nft/colection2/THEAWAKENINGIIIBlue.png",
+    "points": "15",
+    "maxSupply": "50",
+    "collection": {
+      "id": 2,
+      "name": "The Awakening III",
+      "description": null,
+      "created_by": 2,
+      "updated_by": 2,
+      "created_at": "2020-12-24T14:23:24.000Z",
+      "updated_at": "2020-12-24T14:23:24.000Z"
+    },
+    "animation": "https://nft.eddaswap.com/nft/animation/colection2/THEAWAKENINGIIIOriginal.MP4",
+    "rarity": "none"
+  },
+  {
+    "id": 8,
+    "token_id": "8",
+    "name": "The Awakening - Purple",
+    "description": "The Awakeneing III created by Primal Cypher in its Rare Purple Variant",
+    "image": "https://nft.eddaswap.com/nft/colection2/THEAWAKENINGIIIRarePurple.png",
+    "points": "30",
+    "maxSupply": "20",
+    "collection": {
+      "id": 2,
+      "name": "The Awakening III",
+      "description": null,
+      "created_by": 2,
+      "updated_by": 2,
+      "created_at": "2020-12-24T14:23:24.000Z",
+      "updated_at": "2020-12-24T14:23:24.000Z"
+    },
+    "animation": "https://nft.eddaswap.com/nft/animation/colection2/THEAWAKENINGIIIRarePurpleVariant.MP4",
+    "rarity": "Rare"
+  },
+  {
+    "id": 9,
+    "token_id": "9",
+    "name": "The Awakening - Red",
+    "description": "The Awakeneing III created by Primal Cypher in its Red Variant",
+    "image": "https://nft.eddaswap.com/nft/colection2/THEAWAKENINGIIIRed.png",
+    "points": "15",
+    "maxSupply": "50",
+    "collection": {
+      "id": 2,
+      "name": "The Awakening III",
+      "description": null,
+      "created_by": 2,
+      "updated_by": 2,
+      "created_at": "2020-12-24T14:23:24.000Z",
+      "updated_at": "2020-12-24T14:23:24.000Z"
+    },
+    "animation": "https://nft.eddaswap.com/nft/animation/colection2/THEAWAKENINGIIIRedVariant.MP4",
+    "rarity": "none"
+  },
+  {
+    "id": 10,
+    "token_id": "10",
+    "name": "The Awakening - T.Green",
+    "description": "The Awakeneing III created by Primal Cypher in its Trinity Green Variant",
+    "image": "https://nft.eddaswap.com/nft/colection2/THEAWAKENINGIIITrinityGreen.png",
+    "points": "15",
+    "maxSupply": "50",
+    "collection": {
+      "id": 2,
+      "name": "The Awakening III",
+      "description": null,
+      "created_by": 2,
+      "updated_by": 2,
+      "created_at": "2020-12-24T14:23:24.000Z",
+      "updated_at": "2020-12-24T14:23:24.000Z"
+    },
+    "animation": "https://nft.eddaswap.com/nft/animation/colection2/THEAWAKENINGIIITrinityGreenVariant.MP4",
+    "rarity": "none"
+  },
+  {
+    "id": 11,
+    "token_id": "11",
+    "name": "The Awakening - W.Purple",
+    "description": "The Awakeneing III created by Primal Cypher in its Washed Purple Variant",
+    "image": "https://nft.eddaswap.com/nft/colection2/THEAWAKENINGIIIWashedPurple.png",
+    "points": "15",
+    "maxSupply": "50",
+    "collection": {
+      "id": 2,
+      "name": "The Awakening III",
+      "description": null,
+      "created_by": 2,
+      "updated_by": 2,
+      "created_at": "2020-12-24T14:23:24.000Z",
+      "updated_at": "2020-12-24T14:23:24.000Z"
+    },
+    "animation": "https://nft.eddaswap.com/nft/animation/colection2/THEAWAKENINGIIIWashedPurpleVariant.MP4",
+    "rarity": "none"
+  },
+  {
+    "id": 12,
+    "token_id": "12",
+    "name": "DeFi Pow Wow - Nind",
+    "description": "A super rare video NFT dedicated to the founder of the DeFi Pow Wow group - Nind",
+    "image": "https://nft.eddaswap.com/nft/colection2/PowWowSnapshot.png",
+    "points": "100",
+    "maxSupply": "10",
+    "collection": {
+      "id": 2,
+      "name": "The Awakening III",
+      "description": null,
+      "created_by": 2,
+      "updated_by": 2,
+      "created_at": "2020-12-24T14:23:24.000Z",
+      "updated_at": "2020-12-24T14:23:24.000Z"
+    },
+    "animation": "https://nft.eddaswap.com/nft/animation/colection2/PowWow.mp4",
+    "rarity": "Super Rare"
+  },
+  {
+    "id": 13,
+    "token_id": "13",
+    "name": "Andre Cronje",
+    "description": "A super rare video NFT dedicated to the founder of KP3R and YFI - Andre Cronje",
+    "image": "https://nft.eddaswap.com/nft/colection3/Cronjesnapshot.png",
+    "points": null,
+    "maxSupply": null,
+    "collection": null,
+    "animation": null,
+    "rarity": null
+  },
+  {
+    "id": 14,
+    "token_id": "14",
+    "name": "CZ",
+    "description": "A super rare video NFT dedicated to the 'one and only' - CZ (Changpeng Zhao)",
+    "image": "https://nft.eddaswap.com/nft/colection3/CZSnapshot.png",
+    "points": null,
+    "maxSupply": null,
+    "collection": null,
+    "animation": null,
+    "rarity": null
+  }
+]

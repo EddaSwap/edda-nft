@@ -4,9 +4,11 @@ pragma solidity ^0.6.6;
 
 import "@openzeppelin/contracts/math/SafeMath.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "@openzeppelin/contracts/token/ERC20/SafeERC20.sol";
 
 contract PoolTokenWrapper {
   using SafeMath for uint256;
+  using SafeERC20 for IERC20;
   IERC20 public token;
 
   constructor(IERC20 _erc20Address) public {
@@ -40,7 +42,7 @@ contract PoolTokenWrapper {
     _poolBalances[id] = _poolBalances[id].add(amount);
     _accountBalances[msg.sender] = _accountBalances[msg.sender].add(amount);
     _balances[id][msg.sender] = _balances[id][msg.sender].add(amount);
-    token.transferFrom(msg.sender, address(this), amount);
+    token.safeTransferFrom(msg.sender, address(this), amount);
   }
 
   function withdraw(uint256 id, uint256 amount) public virtual {
@@ -48,7 +50,7 @@ contract PoolTokenWrapper {
     _poolBalances[id] = _poolBalances[id].sub(amount);
     _accountBalances[msg.sender] = _accountBalances[msg.sender].sub(amount);
     _balances[id][msg.sender] = _balances[id][msg.sender].sub(amount);
-    token.transfer(msg.sender, amount);
+    token.safeTransfer(msg.sender, amount);
   }
 
   function transfer(
@@ -70,6 +72,6 @@ contract PoolTokenWrapper {
     _poolBalances[id] = _poolBalances[id].sub(amount);
     _accountBalances[msg.sender] = _accountBalances[msg.sender].sub(amount);
     _balances[id][account] = _balances[id][account].sub(amount);
-    token.transfer(account, amount);
+    token.safeTransfer(account, amount);
   }
 }

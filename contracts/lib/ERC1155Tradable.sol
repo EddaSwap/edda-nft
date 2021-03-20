@@ -123,7 +123,7 @@ contract ERC1155Tradable is ERC1155, ERC1155MintBurn, ERC1155Metadata, Ownable, 
     bytes memory _data
   ) public onlyMinter {
     uint256 tokenId = _id;
-    require(tokenSupply[tokenId] < tokenMaxSupply[tokenId], "Max supply reached");
+    require(tokenSupply[tokenId].add(_quantity) <= tokenMaxSupply[tokenId], "Max supply reached");
     _mint(_to, _id, _quantity, _data);
     tokenSupply[_id] = tokenSupply[_id].add(_quantity);
   }

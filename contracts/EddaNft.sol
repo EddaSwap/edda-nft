@@ -12,17 +12,13 @@ contract EddaNft is ERC1155Tradable {
   string public contractURI;
 
   constructor(
-    string memory _name, //// "Meme Ltd."
-    string memory _symbol, //// "MEMES"
+    string memory _name, //// "EddaSwap"
+    string memory _symbol, //// "EDDAS"
     address _proxyRegistryAddress,
-    string memory _baseMetadataURI, //// "https://api.dontbuymeme.com/memes/"
-    string memory _contractURI //// "https://api.dontbuymeme.com/contract/memes-erc1155"
+    string memory _baseMetadataURI, //// "https://nft.eddaswap.com/api/"
+    string memory _contractURI //// "https://nft.eddaswap.com/contract/eddas-erc1155"
   ) public ERC1155Tradable(_name, _symbol, _proxyRegistryAddress) {
     contractURI = _contractURI;
     _setBaseMetadataURI(_baseMetadataURI);
   }
-
-  //// function contractURI() public pure returns (string memory) {
-  ////   return "https://api.dontbuymeme.com/contract/memes-erc1155";
-  //// }
 }

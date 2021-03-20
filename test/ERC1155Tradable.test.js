@@ -62,4 +62,35 @@ contract('ERC1155Tradable', function (accounts) {
       assert.isFalse(maxSupplyAfter.eq(maxSupplyBefore), 'Value of maxSupply not changed')
     })
   })
+
+  describe('mint', async function () {
+    before(async function () {
+      await construct(this)
+
+      this.tokenId = 0
+      this.maxSupply = 100
+      this.initialSupply = new BN(`50`)
+    })
+
+    it('create token', async function () {
+      const uri = ''
+      const data = []
+      this.tokenId = await this.nftsContract.create.call(this.maxSupply, this.initialSupply, uri, data)
+      await this.nftsContract.create(this.maxSupply, this.initialSupply, uri, data)
+    })
+
+    it('quantity exeeds max supply: revert', async function () {
+      const tokenSupply = await this.nftsContract.tokenSupply(this.tokenId)
+      const tokenMaxSupply = await this.nftsContract.tokenMaxSupply(this.tokenId)
+      const quantity = tokenMaxSupply.sub(tokenSupply).add(new BN(`1`))
+      await expectRevert(this.nftsContract.mint(deployer, this.tokenId, quantity, []), `Max supply reached`)
+    })
+
+    it('quantity not exeeds max supply: pass', async function () {
+      const tokenSupply = await this.nftsContract.tokenSupply(this.tokenId)
+      const tokenMaxSupply = await this.nftsContract.tokenMaxSupply(this.tokenId)
+      const quantity = tokenMaxSupply.sub(tokenSupply)
+      await this.nftsContract.mint(deployer, this.tokenId, quantity, [])
+    })
+  })
 })

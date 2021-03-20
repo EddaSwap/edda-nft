@@ -11,9 +11,10 @@ import "./lib/IERC1155.sol";
 import "./lib/Pausable.sol";
 import "./lib/PauserRole.sol";
 import "./lib/PoolTokenWrapper.sol";
+import "./lib/ReentrancyGuard.sol";
 import "./lib/Roles.sol";
 
-contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
+contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable, ReentrancyGuard {
   using SafeMath for uint256;
   IERC1155 public nfts;
 
@@ -36,6 +37,7 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     mapping(uint256 => Card) cards;
   }
 
+  uint256 public constant MAX_CONTROLLER_SHARE = 1000;
   address public controller;
   address public rescuer;
   mapping(address => uint256) public pendingWithdrawals;
@@ -73,6 +75,7 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     IERC1155 _nftsAddress,
     IERC20 _tokenAddress
   ) public PoolTokenWrapper(_tokenAddress) {
+    require(_controller != address(0), "Invalid controller");
     controller = _controller;
     nfts = _nftsAddress;
   }
@@ -105,6 +108,7 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     poolExists(pool)
     updateReward(msg.sender, pool)
     whenNotPaused()
+    nonReentrant
   {
     Pool memory p = pools[pool];
 
@@ -116,7 +120,13 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
   }
 
   // override PoolTokenWrapper's withdraw() function
-  function withdraw(uint256 pool, uint256 amount) public override poolExists(pool) updateReward(msg.sender, pool) {
+  function withdraw(uint256 pool, uint256 amount)
+    public
+    override
+    poolExists(pool)
+    updateReward(msg.sender, pool)
+    nonReentrant
+  {
     require(amount > 0, "cannot withdraw 0");
 
     super.withdraw(pool, amount);
@@ -136,6 +146,7 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     updateReward(msg.sender, fromPool)
     updateReward(msg.sender, toPool)
     whenNotPaused()
+    nonReentrant
   {
     Pool memory toP = pools[toPool];
 
@@ -146,7 +157,7 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     emit Transferred(msg.sender, fromPool, toPool, amount);
   }
 
-  function transferAll(uint256 fromPool, uint256 toPool) external {
+  function transferAll(uint256 fromPool, uint256 toPool) external nonReentrant {
     transfer(fromPool, toPool, balanceOf(msg.sender, fromPool));
   }
 
@@ -160,6 +171,7 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     poolExists(pool)
     cardExists(pool, card)
     updateReward(msg.sender, pool)
+    nonReentrant
   {
     Pool storage p = pools[pool];
     Card memory c = p.cards[card];
@@ -168,7 +180,7 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     require(msg.value == c.mintFee, "support our artists, send eth");
 
     if (c.mintFee > 0) {
-      uint256 _controllerShare = msg.value.mul(p.controllerShare).div(1000);
+      uint256 _controllerShare = msg.value.mul(p.controllerShare).div(MAX_CONTROLLER_SHARE);
       uint256 _artistRoyalty = msg.value.sub(_controllerShare);
       require(_artistRoyalty.add(_controllerShare) == msg.value, "problem with fee");
 
@@ -187,6 +199,7 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     public
     poolExists(pool)
     updateReward(account, pool)
+    nonReentrant
     returns (uint256)
   {
     require(msg.sender == rescuer, "!rescuer");
@@ -205,27 +218,29 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     return earnedPoints;
   }
 
-  function setArtist(uint256 pool, address artist) public onlyOwner {
-    uint256 amount = pendingWithdrawals[artist];
-    pendingWithdrawals[artist] = 0;
-    pendingWithdrawals[artist] = pendingWithdrawals[artist].add(amount);
-    pools[pool].artist = artist;
+  function setArtist(uint256 pool_, address artist_) public onlyOwner poolExists(pool_) nonReentrant {
+    require(artist_ != address(0), "Invalid artist");
+    address oldArtist = pools[pool_].artist;
+    pendingWithdrawals[artist_] = pendingWithdrawals[artist_].add(pendingWithdrawals[oldArtist]);
+    pendingWithdrawals[oldArtist] = 0;
+    pools[pool_].artist = artist_;
 
-    emit UpdatedArtist(pool, artist);
+    emit UpdatedArtist(pool_, artist_);
   }
 
-  function setController(address _controller) public onlyOwner {
-    uint256 amount = pendingWithdrawals[controller];
+  function setController(address _controller) public onlyOwner nonReentrant {
+    require(_controller != address(0), "Invalid controller");
+    pendingWithdrawals[_controller] = pendingWithdrawals[_controller].add(pendingWithdrawals[controller]);
     pendingWithdrawals[controller] = 0;
-    pendingWithdrawals[_controller] = pendingWithdrawals[_controller].add(amount);
     controller = _controller;
   }
 
-  function setRescuer(address _rescuer) public onlyOwner {
+  function setRescuer(address _rescuer) public onlyOwner nonReentrant {
     rescuer = _rescuer;
   }
 
-  function setControllerShare(uint256 pool, uint256 _controllerShare) public onlyOwner poolExists(pool) {
+  function setControllerShare(uint256 pool, uint256 _controllerShare) public onlyOwner poolExists(pool) nonReentrant {
+    require(_controllerShare <= MAX_CONTROLLER_SHARE, "Incorrect controller share");
     pools[pool].controllerShare = _controllerShare;
   }
 
@@ -235,7 +250,8 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     uint256 points,
     uint256 mintFee,
     uint256 releaseTime
-  ) public onlyOwner poolExists(pool) {
+  ) public onlyOwner poolExists(pool) nonReentrant {
+    require(points >= 1e18, "Points too small");
     Card storage c = pools[pool].cards[id];
     c.points = points;
     c.releaseTime = releaseTime;
@@ -249,7 +265,8 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     uint256 points,
     uint256 mintFee,
     uint256 releaseTime
-  ) public onlyOwner poolExists(pool) returns (uint256) {
+  ) public onlyOwner poolExists(pool) nonReentrant returns (uint256) {
+    require(points >= 1e18, "Points too small");
     uint256 tokenId = nfts.create(supply, 0, "", "");
     require(tokenId > 0, "ERC1155 create did not succeed");
 
@@ -268,8 +285,11 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     uint256 rewardRate,
     uint256 controllerShare,
     address artist
-  ) public onlyOwner returns (uint256) {
+  ) public onlyOwner nonReentrant returns (uint256) {
+    require(rewardRate > 0, "Invalid rewardRate");
     require(pools[id].rewardRate == 0, "pool exists");
+    require(artist != address(0), "Invalid artist");
+    require(controllerShare <= MAX_CONTROLLER_SHARE, "Incorrect controller share");
 
     Pool storage p = pools[id];
 
@@ -282,7 +302,7 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     emit PoolAdded(id, artist, periodStart, rewardRate, maxStake);
   }
 
-  function withdrawFee() public {
+  function withdrawFee() public nonReentrant {
     uint256 amount = pendingWithdrawals[msg.sender];
     require(amount > 0, "nothing to withdraw");
     pendingWithdrawals[msg.sender] = 0;
@@ -294,7 +314,7 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     uint256 pool_,
     address tester_,
     uint256 points_
-  ) public onlyOwner poolExists(pool_) returns (uint256) {
+  ) public onlyOwner poolExists(pool_) nonReentrant returns (uint256) {
     Pool storage p = pools[pool_];
     p.points[tester_] = points_;
 
@@ -312,7 +332,8 @@ contract EddaNftStake is PoolTokenWrapper, Ownable, Pausable {
     uint256 poolId_,
     uint256 cardId_,
     uint256 points_
-  ) public onlyOwner poolExists(poolId_) cardExists(poolId_, cardId_) {
+  ) public onlyOwner poolExists(poolId_) cardExists(poolId_, cardId_) nonReentrant {
+    require(points_ >= 1e18, "Points too small");
     Card storage c = pools[poolId_].cards[cardId_];
     c.points = points_;
     emit CardPointsUpdated(poolId_, cardId_, points_);
